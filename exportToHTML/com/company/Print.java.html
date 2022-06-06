@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Print.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Print.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.company</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Print </span><span class="s0">extends </span><span class="s1">Command{</span>
+
+    <span class="s0">public </span><span class="s1">Print(Variable [] CommandVariables) {</span>
+        <span class="s0">super</span><span class="s1">(CommandVariables)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Print(Variable CommandVariable){</span>
+        <span class="s0">super</span><span class="s1">(CommandVariable)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Print(String CommandLiteral) {</span>
+        <span class="s0">super</span><span class="s1">(CommandLiteral)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Print(Variable [] CommandVariables</span><span class="s0">, </span><span class="s1">String CommandLiteral) {</span>
+        <span class="s0">super</span><span class="s1">(CommandVariables</span><span class="s0">, </span><span class="s1">CommandLiteral)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">Execute() {</span>
+        <span class="s0">if </span><span class="s1">(Literal != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">String [] Isolate = Literal.split(</span><span class="s2">&quot;</span><span class="s0">\&quot;</span><span class="s2">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">System.out.println(Isolate[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">else if </span><span class="s1">(Variables != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">Variables[</span><span class="s3">0</span><span class="s1">].Print()</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">else if</span><span class="s1">(AVariable != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">AVariable.Print()</span><span class="s0">;</span>
+            <span class="s0">return true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

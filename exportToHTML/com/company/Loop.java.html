@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Loop.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Loop.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.company</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Loop </span><span class="s0">extends </span><span class="s1">Command {</span>
+
+    <span class="s0">protected </span><span class="s1">Parser LoopParser</span><span class="s0">;</span>
+    <span class="s2">//protected String[] CommandLines;</span>
+    <span class="s0">protected int </span><span class="s1">CommandLines</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">Count</span><span class="s0">;</span>
+    <span class="s0">protected boolean </span><span class="s1">Stop</span><span class="s0">;</span>
+    <span class="s0">protected boolean </span><span class="s1">Start</span><span class="s0">;</span>
+    <span class="s0">protected int </span><span class="s1">Repeat</span><span class="s0">;</span>
+
+    <span class="s2">//public boolean IfStop(boolean Compare)</span>
+
+    <span class="s0">public boolean </span><span class="s1">RunLoopCommands(){</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;CommandLines</span><span class="s0">; </span><span class="s1">++i) {</span>
+            <span class="s2">//replace current line with count</span>
+            <span class="s0">if </span><span class="s1">(!LoopParser.ParseOne(LoopParser.GetCurrentLine()))</span>
+                <span class="s0">return false;</span>
+        <span class="s1">}</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">protected boolean </span><span class="s1">ForLoop(){</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;Repeat</span><span class="s0">; </span><span class="s1">++i) {</span>
+            <span class="s0">if</span><span class="s1">(i&gt;</span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">LoopParser.SetCurrentLine(LoopParser.GetCurrentLine() - CommandLines)</span><span class="s0">; </span><span class="s2">//sets back to beginning</span>
+            <span class="s1">}</span>
+            <span class="s2">//System.out.println(LoopParser.GetCurrentLine() + 1);</span>
+            <span class="s0">if </span><span class="s1">(!RunLoopCommands())</span>
+                <span class="s0">return false;</span>
+        <span class="s1">}</span>
+        <span class="s1">LoopParser.SetCurrentLine(LoopParser.GetCurrentLine() + </span><span class="s3">1</span><span class="s1">)</span><span class="s0">; </span><span class="s2">//sets to after repeat</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">//protected WhileLoop()</span>
+
+    <span class="s2">//protected DoWhileLoop()</span>
+
+    <span class="s0">public </span><span class="s1">Loop(Parser MyParser</span><span class="s0">, boolean </span><span class="s1">IfStart</span><span class="s0">, int </span><span class="s1">Lines</span><span class="s0">, int </span><span class="s1">ToRepeat){</span>
+        <span class="s0">super</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s1">LoopParser = MyParser</span><span class="s0">;</span>
+        <span class="s1">Start = IfStart</span><span class="s0">;</span>
+        <span class="s1">CommandLines = Lines</span><span class="s0">;</span>
+        <span class="s1">Repeat = ToRepeat</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Loop(Parser MyParser</span><span class="s0">, </span><span class="s1">Variable[] CommandVariables) {</span>
+        <span class="s0">super</span><span class="s1">(CommandVariables)</span><span class="s0">;</span>
+        <span class="s1">Count = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">LoopParser = MyParser</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Loop(Parser MyParser</span><span class="s0">, </span><span class="s1">Variable CommandVariable) {</span>
+        <span class="s0">super</span><span class="s1">(CommandVariable)</span><span class="s0">;</span>
+        <span class="s1">Count = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">LoopParser = MyParser</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Loop(Parser MyParser</span><span class="s0">, </span><span class="s1">String CommandLiteral) {</span>
+        <span class="s0">super</span><span class="s1">(CommandLiteral)</span><span class="s0">;</span>
+        <span class="s1">Count = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">LoopParser = MyParser</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Loop(Parser MyParser</span><span class="s0">, </span><span class="s1">Variable[] CommandVariables</span><span class="s0">, </span><span class="s1">String CommandLiteral) {</span>
+        <span class="s0">super</span><span class="s1">(CommandVariables</span><span class="s0">, </span><span class="s1">CommandLiteral)</span><span class="s0">;</span>
+        <span class="s1">Count = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">LoopParser = MyParser</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">Execute() {</span>
+        <span class="s0">boolean </span><span class="s1">Success = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(Start)</span>
+            <span class="s1">Success = ForLoop()</span><span class="s0">;</span>
+        <span class="s0">else</span><span class="s1">{</span>
+            <span class="s1">LoopParser.SetCurrentLine(LoopParser.GetCurrentLine() + CommandLines + </span><span class="s3">1</span><span class="s1">)</span><span class="s0">; </span><span class="s2">//sets to after repeat</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">Success</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

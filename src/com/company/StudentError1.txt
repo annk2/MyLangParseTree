@@ -1,0 +1,2 @@
+PRINT: "Here is an error with the command"
+GIVE: money

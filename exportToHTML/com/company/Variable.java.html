@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Variable.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Variable.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.company</span><span class="s0">;</span>
+
+<span class="s0">public abstract class </span><span class="s1">Variable {</span>
+
+    <span class="s0">enum </span><span class="s1">DataType {NUMBER</span><span class="s0">, </span><span class="s1">WORD</span><span class="s0">, </span><span class="s1">SENTENCE} </span><span class="s2">//DO I NEED THIS??</span>
+    <span class="s0">protected </span><span class="s1">DataType Type</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">String Variable_Name</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Variable(DataType AType</span><span class="s0">, </span><span class="s1">String Name){</span>
+        <span class="s1">Type = AType</span><span class="s0">;</span>
+        <span class="s1">Variable_Name = Name.trim()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">Same(String ToCompare){</span>
+<span class="s2">//        System.out.println(Variable_Name);</span>
+ <span class="s2">//       System.out.println(ToCompare);</span>
+        <span class="s1">ToCompare = ToCompare.trim()</span><span class="s0">;</span>
+        <span class="s1">Variable_Name = Variable_Name.trim()</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(Variable_Name.equals(ToCompare))</span>
+            <span class="s0">return true;</span>
+        <span class="s0">return false;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">PrintName(){</span>
+        <span class="s1">System.out.print(Variable_Name)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public abstract boolean </span><span class="s1">CompareValue(String CompValue)</span><span class="s0">;</span>
+    <span class="s0">public abstract boolean </span><span class="s1">CompareVariable(Variable CompVariable)</span><span class="s0">;</span>
+    <span class="s0">public abstract void </span><span class="s1">SetValue(String ChangeValue)</span><span class="s0">;</span>
+    <span class="s0">public abstract void </span><span class="s1">SetVariable(Variable ChangeVariable)</span><span class="s0">;</span>
+    <span class="s0">public abstract void </span><span class="s1">Print()</span><span class="s0">;</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

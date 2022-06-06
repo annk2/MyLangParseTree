@@ -1,0 +1,2 @@
+PRINT: "Here is an error with the variable"
+SET: does_not_exist TO 5

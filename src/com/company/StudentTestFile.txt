@@ -1,0 +1,37 @@
+WORD: my_word
+SET: my_word TO "myword"
+PRINT: my_word
+
+WORD: another_word
+SET: another_word TO my_word
+PRINT: another_word
+
+SENTENCE: my_sentence
+SET: my_sentence TO "this is my sentence."
+
+LOOP:
+START: "always"
+PRINT: "printing 2 times"
+PRINT: my_sentence
+REPEAT: 2
+
+NUMBER: my_number
+PRINT: "my number is"
+SET: my_number TO 3
+PRINT: my_number
+LOOP:
+START: my_number IS NOT 5
+PRINT: "printing 2 times if my_number is not 5"
+PRINT: my_sentence
+REPEAT: 2
+
+SET: my_number TO 5
+PRINT: "now my number is"
+PRINT: my_number
+LOOP:
+START: my_number IS NOT 5
+PRINT: "printing 2 times if my_number is not 5"
+PRINT: my_sentence
+REPEAT: 2
+PRINT: "next line is to show error check"
+PRINT: variable_does_not_exist

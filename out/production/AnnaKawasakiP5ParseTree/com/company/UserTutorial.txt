@@ -1,0 +1,14 @@
+To declare a number variable with name a, use this format --> NUMBER: a
+To declare a word variable with name a, use this format --> WORD: a
+To declare a sentence variable with name a, use this format --> SENTENCE: a
+
+To set a number variable to an integer value, use this format --> SET: a TO 5
+To set a word variable to a word, use this format --> SET: a TO "word"
+To set a sentence variable to a sentence, use this format --> SET: a TO "this is a sentence"
+
+To begin a loop, use this format --> LOOP:
+The following line of the loop should have a start condition, marked with --> START:
+The condition could be positive or negative, comparing a variable with another value
+Example --> START: a IS 5       Example --> START: a IS NOT 5
+At the end of your loop, mark the number of times you wish to repeat with --> REPEAT: 5
+

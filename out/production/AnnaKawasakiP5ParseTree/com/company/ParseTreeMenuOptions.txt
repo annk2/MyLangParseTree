@@ -1,0 +1,8 @@
+Here are your menu options for your Parse Tree:
+add = add a new student program to your tree
+remove = find a student program and remove it
+show = find a student program and show its contents
+parse = find a student program and parse it
+showall = show all student programs in your tree
+removeall = remove all student programs in your tree
+quit = quit program

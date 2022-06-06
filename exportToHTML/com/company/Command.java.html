@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Command.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Command.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.company</span><span class="s0">;</span>
+
+<span class="s0">public abstract class </span><span class="s1">Command{</span>
+    <span class="s2">//protected enum CommandTypes  ???</span>
+    <span class="s2">//protected String CommandWord;</span>
+    <span class="s0">protected </span><span class="s1">Variable [] Variables</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">Variable AVariable</span><span class="s0">;</span>
+    <span class="s0">protected </span><span class="s1">String Literal</span><span class="s0">;</span>
+
+    <span class="s0">public </span><span class="s1">Command(){</span>
+        <span class="s1">Variables = </span><span class="s0">null;</span>
+        <span class="s1">AVariable = </span><span class="s0">null;</span>
+        <span class="s1">Literal = </span><span class="s0">null;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Command(Variable [] CommandVariables){</span>
+        <span class="s1">Literal = </span><span class="s0">null;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i&lt;CommandVariables.length</span><span class="s0">; </span><span class="s1">++i)</span>
+            <span class="s1">Variables[i] = CommandVariables[i]</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Command(Variable CommandVariable){</span>
+        <span class="s1">Literal = </span><span class="s0">null;</span>
+        <span class="s1">Variables = </span><span class="s0">null;</span>
+        <span class="s1">AVariable = CommandVariable</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Command(String CommandLiteral){</span>
+        <span class="s1">Variables = </span><span class="s0">null;</span>
+        <span class="s1">Literal = CommandLiteral</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Command(Variable [] CommandVariables</span><span class="s0">, </span><span class="s1">String CommandLiteral) {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; CommandVariables.length</span><span class="s0">; </span><span class="s1">++i)</span>
+            <span class="s1">Variables[i] = CommandVariables[i]</span><span class="s0">;</span>
+        <span class="s1">Literal = CommandLiteral</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public abstract boolean </span><span class="s1">Execute()</span><span class="s0">;</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

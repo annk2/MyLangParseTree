@@ -1,0 +1,178 @@
+<html>
+<head>
+<title>Parser.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Parser.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.company</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Parser </span><span class="s0">extends </span><span class="s1">VariableStorage {</span>
+
+    <span class="s1">Reader MyReader</span><span class="s0">;</span>
+
+    <span class="s0">public int </span><span class="s1">GetCurrentLine(){</span>
+        <span class="s0">return </span><span class="s1">MyReader.GetCurrentLine()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">SetCurrentLine(</span><span class="s0">int </span><span class="s1">SetLineNum){</span>
+        <span class="s1">MyReader.SetCurrentLine(SetLineNum)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">protected boolean </span><span class="s1">RunCommand(String CommandLine) {</span>
+        <span class="s1">String[] SplitCommand = CommandLine.split(</span><span class="s2">&quot;:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">String CommandWord = SplitCommand[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">String RestOfLine = </span><span class="s0">null;</span>
+        <span class="s0">if</span><span class="s1">(SplitCommand.length&gt;</span><span class="s3">1</span><span class="s1">) {</span>
+            <span class="s1">RestOfLine = SplitCommand[</span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s4">//RestOfLine.replaceAll(&quot;\\s+&quot;,&quot;&quot;);</span>
+        <span class="s1">}</span>
+        <span class="s1">Command MyCommand = </span><span class="s0">null;</span>
+        <span class="s0">switch </span><span class="s1">(CommandWord) {</span>
+            <span class="s0">case </span><span class="s2">&quot;NUMBER&quot;</span><span class="s1">: </span><span class="s4">//CREATING SINGLE VARIABLES</span>
+            <span class="s0">case </span><span class="s2">&quot;WORD&quot;</span><span class="s1">:</span>
+            <span class="s0">case </span><span class="s2">&quot;SENTENCE&quot;</span><span class="s1">: {</span>
+                <span class="s0">if </span><span class="s1">(!AddVariable(CommandWord</span><span class="s0">, </span><span class="s1">RestOfLine)) </span><span class="s0">return false;</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+
+            <span class="s0">case </span><span class="s2">&quot;SET&quot;</span><span class="s1">: { </span><span class="s4">//CHANGING VARIABLE VALUES</span>
+                <span class="s1">String[] SplitVariables = RestOfLine.split(</span><span class="s2">&quot; TO &quot;</span><span class="s0">, </span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(IsLiteral(SplitVariables[</span><span class="s3">1</span><span class="s1">]) || IsNumber(SplitVariables[</span><span class="s3">1</span><span class="s1">])) {</span>
+                    <span class="s0">if </span><span class="s1">(!ChangeVariableToValue(SplitVariables[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">SplitVariables[</span><span class="s3">1</span><span class="s1">]))</span>
+                        <span class="s0">return false;</span>
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s0">if </span><span class="s1">(!ChangeVariableToVariable(SplitVariables[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">SplitVariables[</span><span class="s3">1</span><span class="s1">]))</span>
+                        <span class="s0">return false;</span>
+                <span class="s1">}</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+
+            <span class="s4">//COMMANDS</span>
+            <span class="s0">case </span><span class="s2">&quot;PRINT&quot;</span><span class="s1">: {</span>
+                <span class="s0">if </span><span class="s1">(IsLiteral(RestOfLine) || IsNumber(RestOfLine))</span>
+                    <span class="s1">MyCommand = </span><span class="s0">new </span><span class="s1">Print(RestOfLine)</span><span class="s0">;</span>
+                <span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">Variable Found = FindVariable(RestOfLine)</span><span class="s0">;</span>
+                    <span class="s0">if </span><span class="s1">(Found != </span><span class="s0">null</span><span class="s1">)</span>
+                        <span class="s1">MyCommand = </span><span class="s0">new </span><span class="s1">Print(Found)</span><span class="s0">;</span>
+                    <span class="s0">else</span>
+                        <span class="s0">return false;</span>
+                <span class="s1">}</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+            <span class="s0">case </span><span class="s2">&quot;LOOP&quot;</span><span class="s1">: {</span>
+                <span class="s0">boolean </span><span class="s1">StartCondition = </span><span class="s0">false;</span>
+                <span class="s1">String StartLine = MyReader.ReadLine(MyReader.GetCurrentLine())</span><span class="s0">;</span>
+                <span class="s1">String [] SplitStartLine = StartLine.split(</span><span class="s2">&quot;: &quot;</span><span class="s0">, </span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">String StartConditionStatement = SplitStartLine[</span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+
+                <span class="s0">if</span><span class="s1">(IsLiteral(StartConditionStatement)) { </span><span class="s4">//conditional is literal</span>
+                    <span class="s1">String[] IsolateStartConditionStatement = StartConditionStatement.split(</span><span class="s2">&quot;</span><span class="s0">\&quot;</span><span class="s2">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">StartConditionStatement = IsolateStartConditionStatement[</span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+                    <span class="s0">if</span><span class="s1">(StartConditionStatement.equals(</span><span class="s2">&quot;always&quot;</span><span class="s1">)) {</span>
+                        <span class="s1">StartCondition = </span><span class="s0">true;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+
+                <span class="s0">else if </span><span class="s1">(StartConditionStatement.contains(</span><span class="s2">&quot;NOT&quot;</span><span class="s1">)){</span>
+                    <span class="s1">String[] CompareVariables = StartConditionStatement.split(</span><span class="s2">&quot; IS NOT &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">StartCondition = CompareConditionalLiteral(</span><span class="s0">true, </span><span class="s1">CompareVariables[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">CompareVariables[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">else</span><span class="s1">{</span>
+                    <span class="s1">String[] CompareVariables = StartConditionStatement.split(</span><span class="s2">&quot; IS &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">StartCondition = CompareConditionalLiteral(</span><span class="s0">false, </span><span class="s1">CompareVariables[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">, </span><span class="s1">CompareVariables[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+
+
+                <span class="s1">String StopConditionStatement = </span><span class="s0">null;</span>
+                <span class="s1">String [] SplitCheckLine = </span><span class="s0">null;</span>
+                <span class="s0">int </span><span class="s1">Lines = </span><span class="s3">0</span><span class="s0">;</span>
+
+                <span class="s0">do </span><span class="s1">{</span>
+                    <span class="s1">String CheckLine = MyReader.ReadLine(MyReader.GetCurrentLine())</span><span class="s0">;</span>
+                    <span class="s1">SplitCheckLine = CheckLine.split(</span><span class="s2">&quot;: &quot;</span><span class="s0">, </span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">StopConditionStatement = SplitCheckLine[</span><span class="s3">0</span><span class="s1">]</span><span class="s0">;</span>
+                    <span class="s0">if</span><span class="s1">(!StopConditionStatement.equals(</span><span class="s2">&quot;REPEAT&quot;</span><span class="s1">))</span>
+                        <span class="s1">++Lines</span><span class="s0">;</span>
+                <span class="s1">}</span><span class="s0">while</span><span class="s1">(!StopConditionStatement.equals(</span><span class="s2">&quot;REPEAT&quot;</span><span class="s1">))</span><span class="s0">;</span>
+
+                <span class="s0">int </span><span class="s1">Repeats = Integer.parseInt(SplitCheckLine[</span><span class="s3">1</span><span class="s1">])</span><span class="s0">;</span>
+                <span class="s1">SetCurrentLine(GetCurrentLine() - Lines - </span><span class="s3">1</span><span class="s1">)</span><span class="s0">; </span><span class="s4">//sets back to beginning</span>
+                <span class="s1">MyCommand = </span><span class="s0">new </span><span class="s1">Loop(</span><span class="s0">this, </span><span class="s1">StartCondition</span><span class="s0">, </span><span class="s1">Lines</span><span class="s0">, </span><span class="s1">Repeats)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+
+            <span class="s0">default</span><span class="s1">: {</span>
+                <span class="s1">System.out.println(CommandWord + </span><span class="s2">&quot; IS NOT A VALID COMMAND.&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+
+        <span class="s1">}</span>
+
+        <span class="s0">if </span><span class="s1">(MyCommand != </span><span class="s0">null</span><span class="s1">)</span>
+            <span class="s1">MyCommand.Execute()</span><span class="s0">;</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Parser(String FileName) {</span>
+        <span class="s0">super</span><span class="s1">()</span><span class="s0">;</span>
+        <span class="s1">MyReader = </span><span class="s0">new </span><span class="s1">Reader(FileName)</span><span class="s0">;</span>
+        <span class="s4">//print tutorial here?</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">ParseOne(</span><span class="s0">int </span><span class="s1">LineNumber) {</span>
+        <span class="s1">String CurrentLine</span><span class="s0">;</span>
+        <span class="s1">CurrentLine = MyReader.ReadLine(LineNumber)</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">CommandSuccess = </span><span class="s0">true;</span>
+        <span class="s1">CommandSuccess = RunCommand(CurrentLine)</span><span class="s0">;</span>
+        <span class="s4">//ViewVariableList();</span>
+
+        <span class="s0">if </span><span class="s1">(!CommandSuccess) {</span>
+            <span class="s1">MyReader.ErrorMessage()</span><span class="s0">;</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public boolean </span><span class="s1">ParseAll(){</span>
+        <span class="s4">//String CurrentLine = &quot;start&quot;;</span>
+        <span class="s4">//boolean CommandSuccess = true;</span>
+        <span class="s1">String CurrentLine</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">CommandSuccess = </span><span class="s0">true;</span>
+        <span class="s4">//while(MyReader.HasNext() &amp;&amp; CommandSuccess) {</span>
+        <span class="s0">do </span><span class="s1">{</span>
+            <span class="s1">CurrentLine = MyReader.ReadLine(MyReader.GetCurrentLine())</span><span class="s0">;</span>
+            <span class="s4">//CurrentLine = MyReader.ReadLine();</span>
+            <span class="s0">if</span><span class="s1">(!CurrentLine.equals(</span><span class="s2">&quot;&quot;</span><span class="s1">))</span>
+                <span class="s1">CommandSuccess = RunCommand(CurrentLine)</span><span class="s0">;</span>
+            <span class="s4">//ViewVariableList();</span>
+        <span class="s1">}</span><span class="s0">while</span><span class="s1">(GetCurrentLine() &lt; MyReader.FileLines.size() &amp;&amp; CommandSuccess)</span><span class="s0">;</span>
+
+        <span class="s0">if</span><span class="s1">(!CommandSuccess) {</span>
+            <span class="s1">MyReader.ErrorMessage()</span><span class="s0">;</span>
+            <span class="s0">return false;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">//MyReader.CloseFile();</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+     <span class="s4">//public boolean ParseLine(String ToParse)</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

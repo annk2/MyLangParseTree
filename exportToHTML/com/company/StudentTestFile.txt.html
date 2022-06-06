@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>StudentTestFile.txt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+StudentTestFile.txt</font>
+</center></td></tr></table>
+<pre><span class="s0">WORD: my_word</span>
+<span class="s0">SET: my_word TO &quot;myword&quot;</span>
+<span class="s0">PRINT: my_word</span>
+
+<span class="s0">WORD: another_word</span>
+<span class="s0">SET: another_word TO my_word</span>
+<span class="s0">PRINT: another_word</span>
+
+<span class="s0">SENTENCE: my_sentence</span>
+<span class="s0">SET: my_sentence TO &quot;this is my sentence.&quot;</span>
+
+<span class="s0">LOOP:</span>
+<span class="s0">START: &quot;always&quot;</span>
+<span class="s0">PRINT: &quot;printing 2 times&quot;</span>
+<span class="s0">PRINT: my_sentence</span>
+<span class="s0">REPEAT: 2</span>
+
+<span class="s0">NUMBER: my_number</span>
+<span class="s0">PRINT: &quot;my number is&quot;</span>
+<span class="s0">SET: my_number TO 3</span>
+<span class="s0">PRINT: my_number</span>
+<span class="s0">LOOP:</span>
+<span class="s0">START: my_number IS NOT 5</span>
+<span class="s0">PRINT: &quot;printing 2 times if my_number is not 5&quot;</span>
+<span class="s0">PRINT: my_sentence</span>
+<span class="s0">REPEAT: 2</span>
+
+<span class="s0">SET: my_number TO 5</span>
+<span class="s0">PRINT: &quot;now my number is&quot;</span>
+<span class="s0">PRINT: my_number</span>
+<span class="s0">LOOP:</span>
+<span class="s0">START: my_number IS NOT 5</span>
+<span class="s0">PRINT: &quot;printing 2 times if my_number is not 5&quot;</span>
+<span class="s0">PRINT: my_sentence</span>
+<span class="s0">REPEAT: 2</span>
+<span class="s0">PRINT: &quot;next line is to show error check&quot;</span>
+<span class="s0">PRINT: variable_does_not_exist</span>
+</pre>
+</body>
+</html>
